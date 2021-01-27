@@ -16,8 +16,13 @@
 
 package com.google.samples.propertyanimation
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 
@@ -70,12 +75,67 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun rotater() {
+        //TODO 1.1
+        val animator = ObjectAnimator.ofFloat(star, View.ROTATION, -360f, 0f)
+
+        //TODO 1.3
+        animator.duration = 1000
+
+        //TODO 1.4
+/*        animator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+                rotateButton.isEnabled = false
+            }
+            override fun onAnimationEnd(animation: Animator?) {
+                rotateButton.isEnabled = true
+            }
+        })*/
+
+        //TODO 1.8
+        /*disableViewDuringAnimation(rotateButton, animator)*/
+
+        //TODO 1.10
+        animator.disableViewDuringAnimation(rotateButton)
+
+        //TODO 1.2
+        animator.start()
     }
 
     private fun translater() {
+
+        //TODO 1.5
+        val animator = ObjectAnimator.ofFloat(star, View.TRANSLATION_X, 200f)
+
+        //TODO 1.6
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+
+        //TODO 1.8
+        /*disableViewDuringAnimation(translateButton, animator)*/
+
+        //TODO 1.10
+        animator.disableViewDuringAnimation(translateButton)
+
+        animator.start()
     }
 
     private fun scaler() {
+
+        //TODO 1.11
+        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 4f)
+        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 4f)
+
+        //TODO 1.12
+        val animator = ObjectAnimator.ofPropertyValuesHolder(
+                star, scaleX, scaleY)
+
+        //TODO 1.13
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+
+        //TODO 1.14
+        animator.disableViewDuringAnimation(scaleButton)
+        animator.start()
     }
 
     private fun fader() {
@@ -86,5 +146,32 @@ class MainActivity : AppCompatActivity() {
 
     private fun shower() {
     }
+
+    //TODO 1.7
+/*    private fun disableViewDuringAnimation(view: View, animator: ObjectAnimator) {
+        animator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+                view.isEnabled = false
+            }
+
+            override fun onAnimationEnd(animation: Animator?) {
+                view.isEnabled = true
+            }
+        })
+    }*/
+
+    //TODO 1.9
+    private fun ObjectAnimator.disableViewDuringAnimation(view: View) {
+        addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+                view.isEnabled = false
+            }
+
+            override fun onAnimationEnd(animation: Animator?) {
+                view.isEnabled = true
+            }
+        })
+    }
+
 
 }
